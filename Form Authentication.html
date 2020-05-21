@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .error {
+            background: #ff7;
+            text-align: center;
+            height: 20px;
+            line-height: 20px;
+            visibility: hidden;
+        }
+
+        .box {
+            position: absolute;
+            left: 650px;
+            top: 170px;
+        }
+
+        .s1 {
+            border: 1px solid #999;
+            background: #eee;
+            text-align: center;
+            float: left;
+            width: 50px;
+            height: 20px;
+        }
+
+        .box span {
+            float: left;
+            margin-left: 20px;
+        }
+
+        input {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset style="width:800px;margin:0 auto;font-size: 14px;">
+        <legend>用户注册</legend>
+        <div class='error'></div>
+        <form action="" method="POST">
+            <p><label for="">用户名称</label><input type="text" placeholder="用户名称只能包含数字、字母、下划线，长度不小于6位"> </p>
+            <p><label for="">用户密码</label><input type="text" placeholder="密码长度在6-20位之间"> </p>
+            <p><label for="">重复密码</label><input type="text"> </p>
+            <p style='position:relative;'><label for="">密码安全等级</label>
+                <div class=box>
+                    <div class='s1'></div>
+                    <div class='s1'></div>
+                    <div class='s1'></div>
+                </div>
+            </p>
+        </form>
+        <legend>个人资料</legend>
+        <form action="" method="POST">
+            <p><label for="">手机号码</label><input type="text" placeholder="手机号只支持数字"> </p>
+            <p><label for="">电子邮箱</label><input type="text" placeholder="769472973@qq.com"> </p>
+            <p><label for="">中文姓名</label><input type="text" placeholder="2-4位的中文姓名"> </p>
+            <p><label for="">验证码</label><input type="text" style="width: 100px;margin-left:30px"> <span
+                    style='background: white;text-align: center;'></span></p>
+        </form>
+        <p><button>注册</button></p>
+    </fieldset>
+    <script>
+        const aInput = document.querySelectorAll('input');
+        const oSpan = document.querySelector('span');
+        const oForm = document.querySelector('form');
+        const oError = document.querySelector('.error');
+        const aBox = document.querySelectorAll('.s1');
+
+        aInput[0].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+        };
+
+        aInput[0].onblur = function () {
+            var reg = /\w/;//用户姓名验证规则
+            if (this.value.length >= 6) {
+                if (this.value !== '') {
+                    if (reg.test(this.value)) {
+                        chinalock = true;
+                    } else {
+                        oError.innerHTML = '用户名格式不正确';
+                        oError.style.visibility = 'visible';
+                        chinalock = false;
+                    }
+                }
+            } else {
+                oError.innerHTML = '用户名长度有误';
+                oError.style.visibility = 'visible';
+            }
+        }
+
+        aInput[1].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+        };
+
+        aInput[1].onblur = function () {
+            if (this.value.length >= 6 && this.value.length <= 20) {
+                var regnum = /[0-9]+/g;  //数字
+                var reguppercase = /[A-Z]+/g;  //大写字母
+                var reglowercase = /[a-z]+/g;  //小写字母
+                var other = /[\W\_]+/g;  //其他字符
+                var count = 0;//计算种类
+                if (regnum.test(this.value)) {
+                    count++;
+                }
+                if (reguppercase.test(this.value)) {
+                    count++;
+                }
+                if (reglowercase.test(this.value)) {
+                    count++;
+                }
+                if (other.test(this.value)) {
+                    count++;
+                }
+                for (var i = 0; i < aBox.length; i++) {
+                    aBox[i].innerHTML = '';
+                    aBox[i].style.background = '#eee';
+                }
+                switch (count) {
+                    case 1:
+                        aBox[0].innerHTML = '弱';
+                        aBox[0].style.background = 'red';
+                        passlock = false;
+                        break;
+                    case 2:
+                    case 3:
+                        aBox[1].innerHTML = '中';
+                        aBox[1].style.background = 'orange';
+                        passlock = true;
+                        break;
+                    case 4:
+                        aBox[2].innerHTML = '强';
+                        aBox[2].style.background = 'green';
+                        passlock = true;
+                        break;
+                }
+            } else {
+                oError.innerHTML = '密码长度有误';
+                oError.style.visibility = 'visible';
+                passlock = false;
+            }
+        }
+
+        aInput[2].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+        };
+
+
+        aInput[2].onblur = function () {
+            if (this.value !== aInput[1].value) {
+                oError.innerHTML = '两次密码不相同';
+                oError.style.visibility = 'visible';
+            }
+        }
+
+        aInput[3].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+        };
+
+        aInput[3].onblur = function () {
+            var reg = /^1[3578]\d{9}$/;//手机号码验证规则
+            if (this.value.length == 11) {
+                if (this.value !== '') {
+                    if (reg.test(this.value)) {
+                        chinalock = true;
+                    } else {
+                        oError.innerHTML = '手机号格式不正确';
+                        oError.style.visibility = 'visible';
+                        chinalock = false;
+                    }
+                }
+            } else {
+                oError.innerHTML = '手机号长度有误';
+                oError.style.visibility = 'visible';
+            }
+        }
+
+        aInput[4].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+        };
+
+        aInput[4].onblur = function () {
+            var reg = /^(\w[\w\-\+]*\w)\@(\w[\w\-\+]*\w)\.(\w[\w\-\+]*\w)$/;
+            if (this.value !== '') {
+                if (reg.test(this.value)) {
+                    chinalock = true;
+                } else {
+                    oError.innerHTML = '邮箱格式不正确';
+                    oError.style.visibility = 'visible';
+                    chinalock = false;
+                }
+            }
+
+        }
+
+        aInput[5].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+        };
+
+        aInput[5].onblur = function () {
+            var reg = /^[\u4e00-\u9fa5]{2,4}$/;//用户姓名验证规则
+            if (this.value !== '') {
+                if (reg.test(this.value)) {
+                    chinalock = true;
+                } else {
+                    oError.innerHTML = '用户姓名格式不正确';
+                    oError.style.visibility = 'visible';
+                    chinalock = false;
+                }
+            } else {
+                oError.innerHTML = '用户姓名不能为空';
+                chinalock = false;
+            }
+        }
+
+        aInput[6].onfocus = function () {
+            oError.innerHTML = '';
+            oError.style.visibility = "hidden";
+            if (oSpan.innerHTML == '') {
+                var ram = '';
+                for (var i = 0; i < 4; i++) {
+                    ram += +Math.round(Math.random() * 9);
+                }
+                oSpan.innerHTML = ram;
+            }
+
+        }
+
+        aInput[6].onblur = function () {
+            if (this.value != oSpan.innerHTML) {
+                oError.innerHTML = '验证码输入有误';
+                oError.style.visibility = 'visible';
+            }
+        }
+
+        oSpan.onclick = function () {
+            oSpan.innerHTML = '';
+            var ram = '';
+            for (var i = 0; i < 4; i++) {
+                ram += Math.round(Math.random() * 9);
+            }
+            oSpan.innerHTML = ram;
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
