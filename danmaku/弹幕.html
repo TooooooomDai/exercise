@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    html,
+    body {
+        height: 100%;
+    }
+    
+    .mask {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        top: 0px;
+        left: 0px;
+    }
+    
+    .bottom {
+        width: 100%;
+        height: 77px;
+        background-color: gray;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        text-align: center;
+        line-height: 77px;
+    }
+    
+    .bottom .content {
+        width: 605px;
+        height: 37px;
+        border: none;
+        border-radius: 10px 0px 0px 10px;
+        font-size: 16px;
+        font-family: 'Microsoft Yahei';
+        padding-left: 5px;
+    }
+    
+    .bottom .send {
+        background-color: green;
+        color: #fff;
+        display: inline-block;
+        width: 150px;
+        height: 40px;
+        line-height: 37px;
+        text-align: center;
+        position: relative;
+        left: -10px;
+        top: -2px;
+        border-radius: 0px 10px 10px 0px;
+        text-decoration: none;
+        font-family: 'Microsoft Yahei';
+    }
+    
+    .text {
+        color: red;
+        position: fixed;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 20px;
+        line-height: 20px;
+        background: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="mask">
+    </div>
+    <div class="bottom">
+        <input class="content" type="text" maxlength="40" />
+        <a href="#" class="send">发表言论</a>
+    </div>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+    function ranNum(min, max) {
+        return Math.round(Math.random() * (max - min)) + min;
+    }
+    $(function() {
+        $('.send').on('click', function() {
+            var $ch = $(window).height(); //可视区的高度
+            var $val = $('.content').val(); //获取表单的值
+            var $content=$('<div class="text">' + $val + '</div>')
+            $content.css({
+                color:'rgb('+ranNum(20,255)+','+ranNum(20,255)+','+ranNum(20,255)+')',
+                position:'absolute',
+                right:-$(this).width(),
+                top:ranNum(0,$ch-77-$(this).height())
+            });
+            $content.animate({
+                right: $(document.body).width() + 100
+            }, 5000,function(){
+                $(this).remove();
+            });
+
+            $('.mask').append($content); //追加内容
+        })
+    })
+    </script>
+</body>
+
+</html>
