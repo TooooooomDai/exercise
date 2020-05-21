@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>按鼠标进入方向运动</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<div class="container">
+    <ul id="da-thumbs" class="da-thumbs">
+      <li><a href="##"> <img src="images/1.jpg" /><div><span>Menu by Simon Jensen</span></div></a></li>
+      <li><a href="##"> <img src="images/2.jpg" /><div><span>TN Aquarium by Charlie Gann</span></div></a></li>
+      <li><a href="##"> <img src="images/3.jpg" /><div><span>Mr. Crabs by John Generalov</span></div></a></li>
+      <li><a href="##"> <img src="images/4.jpg" /><div><span>Gallery of Mo 2.Mo logo by Adam Campion</span></div></a></li>
+      <li><a href="##"> <img src="images/5.jpg" /><div><span>Ice Cream - nom nom by Eight Hour Day</span></div></a></li>
+      <li><a href="##"> <img src="images/6.jpg" /><div><span>My Muse by Zachary Horst</span></div></a></li>
+      <li><a href="##"> <img src="images/7.jpg" /><div><span>Natalie Justin Cleaning by Justin </span></div></a></li>
+      <li><a href="##"> <img src="images/8.jpg" /><div><span>App Preview by Ryan Deshler</span></div></a></li>
+      <li><a href="##"> <img src="images/9.jpg" /><div><span>Cornwall Map by Katharina Maria </span></div></a></li>
+      <li><a href="##"> <img src="images/10.jpg" /><div><span>final AD logo by Annette Diana</span></div></a></li>
+      <li><a href="##"> <img src="images/11.jpg" /><div><span>Land Those Planes by Lee Ann Marcel</span></div></a></li>
+      <li><a href="##"> <img src="images/12.jpg" /><div><span>Seahorse by Trevor Basset</span></div></a></li>
+    </ul>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#da-thumbs > li').hoverdir({
+	        hoverDelay: 100,
+	        reverse: false
+	    });
+	});
+</script>
+</body>
+</html>
